@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 
+"""Perform regression analysis on the iris 
+dataset and save the plot to a file."""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+import argparse
+
 def load_data(data_path: str="iris.csv") -> pd.DataFrame:
     '''Load the data from a CSV file and 
     return it as a pandas DataFrame.
     
     Args:
-        data_path: The path to the CSV file containing the data.
+        `data_path:` The path to the CSV file containing the data.
         
-        Returns: A pandas DataFrame containing the loaded data.
+        `Returns:` 
+        A pandas DataFrame containing the loaded data.
         '''
     dataframe = pd.read_csv(data_path)
     return dataframe
@@ -15,15 +24,15 @@ def load_data(data_path: str="iris.csv") -> pd.DataFrame:
 def species_data(dataframe: pd.DataFrame, species: str=None) -> pd.DataFrame:
     '''Filter the DataFrame for a specific species.
     
-    Args:
+    `Args:`
         dataframe: A pandas DataFrame containing the data.
         species: The species to filter for. If None, return the entire DataFrame.
         
-        Returns: A pandas DataFrame containing the filtered data.
+        `Returns:` A pandas DataFrame containing the filtered data.
         
         '''
     if species is None:
-        dataframe = dataframe
+        return dataframe
     return dataframe[dataframe.species == species]
 
 def regression_analysis(species_data: pd.DataFrame, output_file: str="petal_v_sepal_length_regress.png")-> None:
@@ -38,7 +47,9 @@ def regression_analysis(species_data: pd.DataFrame, output_file: str="petal_v_se
             None
     """
     x = species_data.petal_length_cm
+    print(x)
     y = species_data.sepal_length_cm
+    print
     regression = stats.linregress(x, y)
     slope = regression.slope
     intercept = regression.intercept
@@ -51,24 +62,22 @@ def regression_analysis(species_data: pd.DataFrame, output_file: str="petal_v_se
 
 
 if __name__ == "__main__":
-    
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    from scipy import stats
-    import argparse
 
-    parser = argparse.ArgumentParser(description="Perform regression analysis on iris dataset") 
+    parser = argparse.ArgumentParser(
+        formatter_class = argparse.ArgumentDefaultsHelpFormatter,
+        description="Perform regression analysis on iris dataset"
+    )
     parser.add_argument("-s", "--species", 
-                        default="setosa",
+                        default="Iris_setosa",
                         metavar="SPECIES",
                          help="Species to analyze")
     
     parser.add_argument("-d", "--data",
-                        default=dataframe,
+                        default='dataframe',
                         metavar="DAT",
                         help="This is the data to be analyzed")
     
-    parser.add_argument("-h", "--help", action="help", help="Show this help message and exit")
+    #parser.add_argument("-h", "--help", action="help", help="Show this help message and exit")
     parser.add_argument("-o", "--output",
                         default="petal_v_sepal_length_regress.png",
                         metavar="OUT",
