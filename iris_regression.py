@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 
 """Perform regression analysis on the iris 
-dataset and save the plot to a file."""
+dataset and save the plot to a file.
+
+Usage:
+    python3 iris_regression.py -s Iris_setosa -d iris.csv -o setosa_regress.png
+    python3 iris_regression.py -s Iris_versicolor -d iris.csv -o versicolor_regress.png
+    python3 iris_regression.py -s Iris_virginica -d iris.csv -o virginica_regress.png
+
+"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -79,7 +86,7 @@ if __name__ == "__main__":
     
     #parser.add_argument("-h", "--help", action="help", help="Show this help message and exit")
     parser.add_argument("-o", "--output",
-                        default="petal_v_sepal_length_regress.png",
+                        default="species.png",
                         metavar="OUT",
                         help="Output file for the plot") 
     
